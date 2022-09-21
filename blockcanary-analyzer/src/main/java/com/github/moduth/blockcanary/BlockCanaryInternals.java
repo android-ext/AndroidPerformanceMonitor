@@ -15,7 +15,6 @@
  */
 package com.github.moduth.blockcanary;
 
-import android.os.Environment;
 import android.os.Looper;
 
 import com.github.moduth.blockcanary.internal.BlockInfo;
@@ -116,15 +115,7 @@ public final class BlockCanaryInternals {
     }
 
     static String getPath() {
-        String state = Environment.getExternalStorageState();
-        String logPath = BlockCanaryInternals.getContext()
-                == null ? "" : BlockCanaryInternals.getContext().providePath();
-
-        if (Environment.MEDIA_MOUNTED.equals(state)
-                && Environment.getExternalStorageDirectory().canWrite()) {
-            return Environment.getExternalStorageDirectory().getPath() + logPath;
-        }
-        return getContext().provideContext().getFilesDir() + BlockCanaryInternals.getContext().providePath();
+        return getContext().provideContext().getFilesDir().getPath() + BlockCanaryInternals.getContext().providePath();
     }
 
     static File detectedBlockDirectory() {
